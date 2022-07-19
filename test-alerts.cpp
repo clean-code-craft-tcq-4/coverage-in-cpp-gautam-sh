@@ -38,21 +38,21 @@ TEST_CASE_METHOD(EmailAlerter, "classifies the breach type and sends email alert
 
 TEST_CASE_METHOD(ControllerAlerter, "classifies the breach type and sends controller alert"){
   ControllerAlerter test_controller_alerter;
-  test_controller_alerter.brand = "brand_A";
+  // test_controller_alerter.brand = "brand_A";
 
-  for(auto it : test_controller_alerter.cooling_type_limits) {
-    test_controller_alerter.cooling_type = it.first;
+  // for(auto it : test_controller_alerter.cooling_type_limits) {
+  //   test_controller_alerter.cooling_type = it.first;
 
-    double test_temp_lower = it.second.first - 0.5;
-    double test_temp_higher = it.second.second + 0.5;
-    double test_temp_normal = (it.second.first + it.second.second)/2;
+  //   double test_temp_lower = it.second.first - 0.5;
+  //   double test_temp_higher = it.second.second + 0.5;
+  //   double test_temp_normal = (it.second.first + it.second.second)/2;
 
-    REQUIRE(test_controller_alerter.classifyTemperatureBreach(test_temp_higher) == Breach::BreachType::TOO_HIGH);
-    REQUIRE(test_controller_alerter.classifyTemperatureBreach(test_temp_lower) == Breach::BreachType::TOO_LOW);
-    REQUIRE(test_controller_alerter.classifyTemperatureBreach(test_temp_normal) == Breach::BreachType::NORMAL);
-    REQUIRE(test_controller_alerter.classifyTemperatureBreach(it.second.first) == Breach::BreachType::NORMAL);
-    REQUIRE(test_controller_alerter.classifyTemperatureBreach(it.second.second) == Breach::BreachType::NORMAL);
-  }
+  //   REQUIRE(test_controller_alerter.classifyTemperatureBreach(test_temp_higher) == Breach::BreachType::TOO_HIGH);
+  //   REQUIRE(test_controller_alerter.classifyTemperatureBreach(test_temp_lower) == Breach::BreachType::TOO_LOW);
+  //   REQUIRE(test_controller_alerter.classifyTemperatureBreach(test_temp_normal) == Breach::BreachType::NORMAL);
+  //   REQUIRE(test_controller_alerter.classifyTemperatureBreach(it.second.first) == Breach::BreachType::NORMAL);
+  //   REQUIRE(test_controller_alerter.classifyTemperatureBreach(it.second.second) == Breach::BreachType::NORMAL);
+  // }
 
   std::string test_controller_msg = "0xfeed : ";
 
@@ -61,3 +61,27 @@ TEST_CASE_METHOD(ControllerAlerter, "classifies the breach type and sends contro
   REQUIRE(test_controller_alerter.sendAlert(Breach::NORMAL) == test_controller_msg + std::to_string(Breach::NORMAL));
 
 }
+
+// TEST_CASE("classifies the breach type"){
+  // Alerter* test_controller_alerter;
+  // EmailAlerter* test_email_alerter;
+
+  // std::vector<Alerter*> test_alerter = {test_controller_alerter, test_email_alerter};
+
+  // for(auto alert_it : test_alerter) {
+    // for(auto it : alert_it->cooling_type_limits) {
+  //       alert_it->cooling_type = it.first;
+
+  //       double test_temp_lower = it.second.first - 0.5;
+  //       double test_temp_higher = it.second.second + 0.5;
+  //       double test_temp_normal = (it.second.first + it.second.second)/2;
+
+        // REQUIRE(alert_it->classifyTemperatureBreach(test_temp_higher) == Breach::BreachType::TOO_HIGH);
+        // REQUIRE(alert_it->classifyTemperatureBreach(test_temp_lower) == Breach::BreachType::TOO_LOW);
+        // REQUIRE(alert_it->classifyTemperatureBreach(test_temp_normal) == Breach::BreachType::NORMAL);
+        // REQUIRE(alert_it->classifyTemperatureBreach(it.second.first) == Breach::BreachType::NORMAL);
+        // REQUIRE(alert_it->classifyTemperatureBreach(it.second.second) == Breach::BreachType::NORMAL);
+      // }
+  // }
+// }
+
