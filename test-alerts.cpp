@@ -17,6 +17,10 @@ TEST_CASE_METHOD(EmailAlerter, "classifies the breach type and sends email alert
   EmailAlerter test_email_alerter;
   test_email_alerter.brand = "brand_A";
 
+  std::string test_low_breach_msg = "To: a.b@c.com\nHi, the temperature is too low";
+  std::string test_high_breach_msg = "To: a.b@c.com\nHi, the temperature is too high";
+  std::string test_no_breach_msg = "To: a.b@c.com\nHi, the temperature is normal";
+
   for(auto it : test_email_alerter.cooling_type_limits) {
     test_email_alerter.cooling_type = it.first;
 
@@ -29,15 +33,12 @@ TEST_CASE_METHOD(EmailAlerter, "classifies the breach type and sends email alert
     REQUIRE(test_email_alerter.classifyTemperatureBreach(test_temp_normal) == Breach::BreachType::NORMAL);
     REQUIRE(test_email_alerter.classifyTemperatureBreach(it.second.first) == Breach::BreachType::NORMAL);
     REQUIRE(test_email_alerter.classifyTemperatureBreach(it.second.second) == Breach::BreachType::NORMAL);
+
+    REQUIRE(test_email_alerter.sendAlert(Breach::TOO_HIGH) == test_high_breach_msg);
+    REQUIRE(test_email_alerter.sendAlert(Breach::TOO_LOW) == test_low_breach_msg);
+    REQUIRE(test_email_alerter.sendAlert(Breach::NORMAL) == test_no_breach_msg);
   }
   
-  std::string test_low_breach_msg = "To: a.b@c.com\nHi, the temperature is too low";
-  std::string test_high_breach_msg = "To: a.b@c.com\nHi, the temperature is too high";
-  std::string test_no_breach_msg = "To: a.b@c.com\nHi, the temperature is normal";
-
-  REQUIRE(test_email_alerter.sendAlert(Breach::TOO_HIGH) == test_high_breach_msg);
-  REQUIRE(test_email_alerter.sendAlert(Breach::TOO_LOW) == test_low_breach_msg);
-  REQUIRE(test_email_alerter.sendAlert(Breach::NORMAL) == test_no_breach_msg);
 }
 
 TEST_CASE_METHOD(ControllerAlerter, "updates the breach limits and sends controller alert"){
@@ -57,18 +58,19 @@ TEST_CASE_METHOD(ControllerAlerter, "updates the breach limits and sends control
   //   REQUIRE(test_controller_alerter.classifyTemperatureBreach(it.second.first) == Breach::BreachType::NORMAL);
   //   REQUIRE(test_controller_alerter.classifyTemperatureBreach(it.second.second) == Breach::BreachType::NORMAL);
   // }
+    std::string test_controller_msg = "0xfeed : ";
 
   for(auto it : test_controller_alerter.cooling_type_limits) {
     test_controller_alerter.updateLimits(it.first, -5, 200);
     REQUIRE(test_controller_alerter.cooling_type_limits[it.first].first == -5);
     REQUIRE(test_controller_alerter.cooling_type_limits[it.first].second == 200);
+
+    REQUIRE(test_controller_alerter.sendAlert(Breach::TOO_HIGH) == test_controller_msg + std::to_string(Breach::TOO_HIGH));
+    REQUIRE(test_controller_alerter.sendAlert(Breach::TOO_LOW) == test_controller_msg + std::to_string(Breach::TOO_LOW));
+    REQUIRE(test_controller_alerter.sendAlert(Breach::NORMAL) == test_controller_msg + std::to_string(Breach::NORMAL));
+
   }
 
-  std::string test_controller_msg = "0xfeed : ";
-
-  REQUIRE(test_controller_alerter.sendAlert(Breach::TOO_HIGH) == test_controller_msg + std::to_string(Breach::TOO_HIGH));
-  REQUIRE(test_controller_alerter.sendAlert(Breach::TOO_LOW) == test_controller_msg + std::to_string(Breach::TOO_LOW));
-  REQUIRE(test_controller_alerter.sendAlert(Breach::NORMAL) == test_controller_msg + std::to_string(Breach::NORMAL));
 
 }
 
