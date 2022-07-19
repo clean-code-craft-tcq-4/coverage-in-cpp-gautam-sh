@@ -12,7 +12,6 @@ class Alerter : public BatteryCharacter {
     void checkAndAlert(double temperatureInC){
 
         Breach::BreachType breachType = BatteryCharacter::classifyTemperatureBreach(temperatureInC);
-        AlertTarget test_alert;
         printMessage(sendAlert(breachType));
     }
 
@@ -43,10 +42,7 @@ class EmailAlerter : public Alerter {
 class ControllerAlerter : public Alerter {
     public:
     std::string sendAlert(BreachType breachType){
-        const unsigned short header = 0xfeed;
-        printf("%x : %x\n", header, breachType);
-        std::string control_msg = header + " : " + breachType;
+        std::string control_msg = "0xfeed : " + std::to_string(breachType);
         return control_msg;
-
   }
 };

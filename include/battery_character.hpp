@@ -1,4 +1,3 @@
-// #include "coverage-in-cpp-gautam-sh/include/breach.hpp"
 #include "breach.hpp"
 #include <iostream>
 #include <utility>
@@ -16,8 +15,6 @@ class BatteryCharacter : public Breach {
 
     CoolingType cooling_type;
     std::string brand;
-    double lower_limit;
-    double upper_limit;
 
     std::map<BatteryCharacter::CoolingType, std::pair<double,double>> cooling_type_limits = {
         {PASSIVE_COOLING,std::make_pair(0,35)},
@@ -31,5 +28,4 @@ class BatteryCharacter : public Breach {
     BreachType classifyTemperatureBreach(double temperatureInC){
         return inferBreach(temperatureInC, cooling_type_limits[cooling_type].first, cooling_type_limits[cooling_type].second);
     }
-
 };
