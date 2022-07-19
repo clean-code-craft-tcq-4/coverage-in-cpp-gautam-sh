@@ -4,10 +4,10 @@
 class Alerter : public BatteryCharacter {
     public:
 
-    enum AlertTarget {
-    TO_CONTROLLER,
-    TO_EMAIL
-    };
+    // enum AlertTarget {
+    // TO_CONTROLLER,
+    // TO_EMAIL
+    // };
 
     void checkAndAlert(double temperatureInC){
 
