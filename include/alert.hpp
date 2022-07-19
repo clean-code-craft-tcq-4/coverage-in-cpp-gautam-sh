@@ -12,7 +12,6 @@ class Alerter : public BatteryCharacter {
     void checkAndAlert(double temperatureInC){
 
         Breach::BreachType breachType = BatteryCharacter::classifyTemperatureBreach(temperatureInC);
-        AlertTarget test_alert;
         printMessage(sendAlert(breachType));
     }
 

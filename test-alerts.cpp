@@ -7,6 +7,10 @@
 
 TEST_CASE("infers the breach according to limits") {
   REQUIRE(Breach::inferBreach(12, 20, 30) == Breach::BreachType::TOO_LOW);
+  REQUIRE(Breach::inferBreach(20, 20, 30) == Breach::BreachType::NORMAL);
+  REQUIRE(Breach::inferBreach(25, 20, 30) == Breach::BreachType::NORMAL);
+  REQUIRE(Breach::inferBreach(30, 20, 30) == Breach::BreachType::NORMAL);
+  REQUIRE(Breach::inferBreach(31, 20, 30) == Breach::BreachType::TOO_HIGH);
 }
 
 TEST_CASE_METHOD(EmailAlerter, "classifies the breach type and sends email alert"){
