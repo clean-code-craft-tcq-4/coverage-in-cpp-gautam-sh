@@ -15,8 +15,6 @@ class BatteryCharacter : public Breach {
 
     CoolingType cooling_type;
     std::string brand;
-    double lower_limit;
-    double upper_limit;
 
     std::map<BatteryCharacter::CoolingType, std::pair<double,double>> cooling_type_limits = {
         {PASSIVE_COOLING,std::make_pair(0,35)},

@@ -36,7 +36,7 @@ TEST_CASE_METHOD(EmailAlerter, "classifies the breach type and sends email alert
   REQUIRE(test_email_alerter.sendAlert(Breach::NORMAL) == test_no_breach_msg);
 }
 
-TEST_CASE_METHOD(ControllerAlerter, "classifies the breach type and sends controller alert"){
+TEST_CASE_METHOD(ControllerAlerter, "updates the breach limits and sends controller alert"){
   ControllerAlerter test_controller_alerter;
   // test_controller_alerter.brand = "brand_A";
 
@@ -53,6 +53,12 @@ TEST_CASE_METHOD(ControllerAlerter, "classifies the breach type and sends contro
   //   REQUIRE(test_controller_alerter.classifyTemperatureBreach(it.second.first) == Breach::BreachType::NORMAL);
   //   REQUIRE(test_controller_alerter.classifyTemperatureBreach(it.second.second) == Breach::BreachType::NORMAL);
   // }
+
+  for(auto it : test_controller_alerter.cooling_type_limits) {
+    test_controller_alerter.updateLimits(it.first, -5, 200);
+    REQUIRE(test_controller_alerter.cooling_type_limits[it.first].first == -5);
+    REQUIRE(test_controller_alerter.cooling_type_limits[it.first].second == 200);
+  }
 
   std::string test_controller_msg = "0xfeed : ";
 
