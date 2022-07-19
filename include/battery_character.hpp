@@ -1,4 +1,3 @@
-// #include "coverage-in-cpp-gautam-sh/include/breach.hpp"
 #include "breach.hpp"
 #include <iostream>
 #include <utility>
@@ -31,5 +30,4 @@ class BatteryCharacter : public Breach {
     BreachType classifyTemperatureBreach(double temperatureInC){
         return inferBreach(temperatureInC, cooling_type_limits[cooling_type].first, cooling_type_limits[cooling_type].second);
     }
-
 };
