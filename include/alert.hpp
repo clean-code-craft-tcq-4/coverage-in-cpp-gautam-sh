@@ -43,10 +43,7 @@ class EmailAlerter : public Alerter {
 class ControllerAlerter : public Alerter {
     public:
     std::string sendAlert(BreachType breachType){
-        const unsigned short header = 0xfeed;
-        printf("%x : %x\n", header, breachType);
-        std::string control_msg = header + " : " + breachType;
+        std::string control_msg = "0xfeed : " + std::to_string(breachType);
         return control_msg;
-
   }
 };
