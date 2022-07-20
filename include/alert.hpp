@@ -25,10 +25,7 @@ class EmailAlerter : public Alerter {
     std::string high_breach_msg = "To: " + recepient + "\nHi, the temperature is too high";
     std::string no_breach_msg = "To: " + recepient + "\nHi, the temperature is normal";
 
-    std::map<Breach::BreachType, std::string> breach_type_msgs = {
-            {Breach::TOO_LOW,low_breach_msg},
-            {Breach::TOO_HIGH,high_breach_msg},
-            {Breach::NORMAL,no_breach_msg}};
+    std::map<Breach::BreachType, std::string> breach_type_msgs = {{Breach::NORMAL,no_breach_msg},{Breach::TOO_LOW,low_breach_msg},{Breach::TOO_HIGH,high_breach_msg}};
 
     return breach_type_msgs[breachType];
     }
