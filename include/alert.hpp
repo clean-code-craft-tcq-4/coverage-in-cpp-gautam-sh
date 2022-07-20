@@ -4,11 +4,6 @@
 class Alerter : public BatteryCharacter {
     public:
 
-    // enum AlertTarget {
-    // TO_CONTROLLER,
-    // TO_EMAIL
-    // };
-
     void checkAndAlert(double temperatureInC){
 
         Breach::BreachType breachType = BatteryCharacter::classifyTemperatureBreach(temperatureInC);

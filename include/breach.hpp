@@ -3,7 +3,6 @@
 #include <iostream>
 
 class Breach {
-
     public:
 
     enum BreachType {
@@ -19,5 +18,4 @@ class Breach {
     if(value == upperLimit) --it;
     return BreachType(it -boundary.begin());
     }
-
 };
