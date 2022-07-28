@@ -34,6 +34,18 @@ TEST_CASE_METHOD(EmailAlerter, "classifies the breach type and sends email alert
     REQUIRE(test_email_alerter.classifyTemperatureBreach(test_temp_normal) == Breach::BreachType::NORMAL);
     REQUIRE(test_email_alerter.classifyTemperatureBreach(it.second.first) == Breach::BreachType::NORMAL);
     REQUIRE(test_email_alerter.classifyTemperatureBreach(it.second.second) == Breach::BreachType::NORMAL);
+
+    test_email_alerter.checkAndAlert(test_temp_higher, false);
+    REQUIRE(test_email_alerter.breachType == Breach::BreachType::TOO_HIGH);
+    REQUIRE(test_email_alerter.alert_msg == test_high_breach_msg);
+
+    test_email_alerter.checkAndAlert(test_temp_lower, false);
+    REQUIRE(test_email_alerter.breachType == Breach::BreachType::TOO_LOW);
+    REQUIRE(test_email_alerter.alert_msg == test_low_breach_msg);
+    
+    test_email_alerter.checkAndAlert(test_temp_normal, false);
+    REQUIRE(test_email_alerter.breachType == Breach::BreachType::NORMAL);
+    REQUIRE(test_email_alerter.alert_msg == test_no_breach_msg);
   }
 }
 

@@ -4,10 +4,14 @@
 class Alerter : public BatteryCharacter {
     public:
 
-    void checkAndAlert(double temperatureInC){
+    Breach::BreachType breachType;
+    std::string alert_msg;
 
-        Breach::BreachType breachType = BatteryCharacter::classifyTemperatureBreach(temperatureInC);
-        printMessage(sendAlert(breachType));
+    void checkAndAlert(double temperatureInC, bool print_alert = true){
+
+        breachType = BatteryCharacter::classifyTemperatureBreach(temperatureInC);
+        alert_msg = sendAlert(breachType);
+        if(print_alert) printMessage(alert_msg);
     }
 
     virtual std::string sendAlert(BreachType breachType) = 0;
